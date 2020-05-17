@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <h1 h3 class="text-center">Sudoku Solver</h1>
+    <p class="text-center">Created by : Michael Suriawan | <a href="https://www.linkedin.com/in/michael-suriawan/">Linkedin</a> | <a href="https://github.com/mikem2m/SudokuSolver">Github</a> </p>
+    <div class="text-center">
+    <button type="button" onclick="onSolveButtonClicked()" id="solveButton" class="btn btn-primary">Solve</button>
+    <button type="button" onclick="onFillButtonClicked()" id="fillButton" class="btn btn-success">Auto-Fill</button>
+    <button type="button" onclick="onClearButtonClicked()" id="clearButton" class="btn btn-danger">Clear</button>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h5 class="text-center">Sudoku Question</h5>
+                <table>
+                    <tr>
+                        <td><input id="box-1" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-2" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-3" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-4" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-5" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-6" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-7" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-8" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-9" type="number" min="1" max="9" maxlength="1"></td>
+                    </tr>
+                    <tr>
+                        <td><input id="box-10" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-11" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-12" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-13" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-14" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-15" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-16" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-17" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-18" type="number" min="1" max="9" maxlength="1"></td>
+                    </tr>
+                    <tr>
+                        <td><input id="box-19" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-20" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-21" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-22" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-23" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-24" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-25" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-26" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-27" type="number" min="1" max="9" maxlength="1"></td>
+                    </tr>
+                    <tr>
+                        <td><input id="box-28" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-29" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-30" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-31" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-32" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-33" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-34" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-35" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-36" type="number" min="1" max="9" maxlength="1"></td>
+                    </tr>
+                    <tr>
+                        <td><input id="box-37" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-38" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-39" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-40" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-41" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-42" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-43" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-44" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-45" type="number" min="1" max="9" maxlength="1"></td>
+                    </tr>
+                    <tr>
+                        <td><input id="box-46" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-47" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-48" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-49" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-50" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-51" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-52" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-53" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-54" type="number" min="1" max="9" maxlength="1"></td>
+                    </tr>
+                    <tr>
+                        <td><input id="box-55" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-56" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-57" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-58" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-59" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-60" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-61" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-62" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-63" type="number" min="1" max="9" maxlength="1"></td>
+                    </tr>
+                    <tr>
+                        <td><input id="box-64" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-65" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-66" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-67" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-68" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-69" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-70" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-71" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-72" type="number" min="1" max="9" maxlength="1"></td>
+                    </tr>
+                    <tr>
+                        <td><input id="box-73" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-74" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-75" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-76" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-77" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-78" type="number" min="1" max="9" maxlength="1"></td>
+
+                        <td><input id="box-79" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-80" type="number" min="1" max="9" maxlength="1"></td>
+                        <td><input id="box-81" type="number" min="1" max="9" maxlength="1"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col">
+                <h5 class="text-center">Sudoku Answer</h5>
+                <table>
+                    <tr>
+                        <td><input id="ans-1" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-2" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-3" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-4" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-5" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-6" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-7" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-8" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-9" type="number" min="1" max="9" maxlength="1" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><input id="ans-10" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-11" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-12" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-13" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-14" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-15" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-16" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-17" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-18" type="number" min="1" max="9" maxlength="1" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><input id="ans-19" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-20" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-21" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-22" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-23" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-24" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-25" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-26" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-27" type="number" min="1" max="9" maxlength="1" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><input id="ans-28" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-29" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-30" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-31" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-32" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-33" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-34" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-35" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-36" type="number" min="1" max="9" maxlength="1" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><input id="ans-37" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-38" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-39" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-40" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-41" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-42" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-43" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-44" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-45" type="number" min="1" max="9" maxlength="1" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><input id="ans-46" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-47" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-48" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-49" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-50" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-51" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-52" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-53" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-54" type="number" min="1" max="9" maxlength="1" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><input id="ans-55" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-56" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-57" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-58" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-59" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-60" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-61" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-62" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-63" type="number" min="1" max="9" maxlength="1" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><input id="ans-64" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-65" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-66" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-67" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-68" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-69" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-70" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-71" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-72" type="number" min="1" max="9" maxlength="1" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><input id="ans-73" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-74" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-75" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-76" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-77" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-78" type="number" min="1" max="9" maxlength="1" disabled></td>
+
+                        <td><input id="ans-79" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-80" type="number" min="1" max="9" maxlength="1" disabled></td>
+                        <td><input id="ans-81" type="number" min="1" max="9" maxlength="1" disabled></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

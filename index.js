@@ -1,50 +1,45 @@
+"use strict";
 //#region Button Event Listeners
-
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 // var solveButton = document.getElementById("solveButton");
 // solveButton.addEventListener('click',() => {
 //     SolveSudokuBoard();
 // });
-
-const onSolveButtonClicked = () => {
+var onSolveButtonClicked = function () {
     SolveSudokuBoard();
 };
-
 // var fillButton = document.getElementById("fillButton");
 // fillButton.addEventListener('click',() => {
 //     MapEmptyBoardToQuestion();
 //     MapBoardToQuestion(exampleBoard2);
 //     MapEmptyBoardToAnswer();
 // });
-
-const onFillButtonClicked = () => {
+var onFillButtonClicked = function () {
     MapBoardToQuestion(exampleBoard2);
 };
-
 // var clearButton = document.getElementById("clearButton");
 // clearButton.addEventListener('click', () => {
 //     MapEmptyBoardToQuestion();
 //     MapEmptyBoardToAnswer();
 // });
-
-const onClearButtonClicked = () => {
+var onClearButtonClicked = function () {
     MapEmptyBoardToQuestion();
     MapEmptyBoardToAnswer();
 };
-
 //#endregion
-
 //#region Constants
-
-const n:null = null;
-const boardLength = 9;
-
+var n = null;
+var boardLength = 9;
 //#endregion
-
 //#region Board Examples
-
 // Board description => board[vertical row Y][horizontal column X]
-
-const emptyBoard = [
+var emptyBoard = [
     [n, n, n, n, n, n, n, n, n],
     [n, n, n, n, n, n, n, n, n],
     [n, n, n, n, n, n, n, n, n],
@@ -55,8 +50,7 @@ const emptyBoard = [
     [n, n, n, n, n, n, n, n, n],
     [n, n, n, n, n, n, n, n, n]
 ];
-
-const exampleBoard = [
+var exampleBoard = [
     [n, 3, n, n, 1, n, n, 6, n],
     [7, 5, n, n, 3, n, n, 4, 8],
     [n, n, 6, 9, 8, 4, 3, n, n],
@@ -67,8 +61,7 @@ const exampleBoard = [
     [6, 8, n, n, 9, n, n, 1, 5],
     [n, 9, n, n, 4, n, n, 3, n]
 ];
-
-const exampleBoard2 = [
+var exampleBoard2 = [
     [5, n, 9, n, n, n, n, n, 7],
     [n, 8, n, n, 1, n, 5, 2, n],
     [n, n, 3, n, 8, 4, n, n, 1],
@@ -79,8 +72,7 @@ const exampleBoard2 = [
     [n, 4, n, n, n, n, 7, n, n],
     [1, n, 7, n, 9, n, n, 8, n]
 ];
-
-const exampleBoard3 = [
+var exampleBoard3 = [
     [5, 5, 9, n, n, n, n, n, 7],
     [n, 8, n, n, 1, n, 5, 2, n],
     [n, n, 3, n, 8, 4, n, n, 1],
@@ -91,8 +83,7 @@ const exampleBoard3 = [
     [n, 4, n, n, n, n, 7, n, n],
     [1, n, 7, n, 9, n, n, 8, n]
 ];
-
-const exampleBoard4 = [
+var exampleBoard4 = [
     [1, n, n, n, n, n, n, n, n],
     [n, 2, 8, 1, 4, 5, 6, 7, 3],
     [3, n, n, n, n, n, n, n, n],
@@ -103,8 +94,7 @@ const exampleBoard4 = [
     [8, n, n, n, n, n, n, n, n],
     [9, n, n, n, n, n, n, n, n]
 ];
-
-const exampleBoard5 = [
+var exampleBoard5 = [
     [1, 2, 3, 4, 5, 6, 7, 8, n],
     [n, n, n, n, n, n, n, n, 2],
     [n, n, n, n, n, n, n, n, 3],
@@ -115,8 +105,7 @@ const exampleBoard5 = [
     [n, n, n, n, n, n, n, n, 8],
     [n, n, n, n, n, n, n, n, 9]
 ];
-
-const exampleBoard6 = [
+var exampleBoard6 = [
     [1, n, n, n, n, n, n, n, n],
     [2, n, n, n, n, n, n, n, n],
     [3, n, n, n, n, n, n, n, n],
@@ -127,135 +116,125 @@ const exampleBoard6 = [
     [8, n, n, n, n, n, n, n, n],
     [n, 2, 3, 4, 5, 6, 7, 8, 9]
 ];
-
 //#endregion
-
 //#region Logic
-
-const Solve = (board:number[][]): (number[][]) => {
-    if(IsBoardCompleted(board)){
+var Solve = function (board) {
+    if (IsBoardCompleted(board)) {
         // Stops the recurssion, solution has been found here.
-        return board; 
-    }else{
+        return board;
+    }
+    else {
         // Generate possible boards.
-        const possibleBoards = GeneratePossibleBoards(board);
-        
+        var possibleBoards = GeneratePossibleBoards(board);
         // Filter those possible boards.
-        const validatedPossibleBoards = ValidateBoards(possibleBoards);
-
+        var validatedPossibleBoards = ValidateBoards(possibleBoards);
         // Search for completed board.
         return FindCompletedBoard(validatedPossibleBoards);
     }
 };
-
-const IsBoardCompleted = (board: number[][]) : boolean => {
+var IsBoardCompleted = function (board) {
     // Finds any empty box in the board, if it does, board is not complete.
     // If board is complete, that board is the correct solution as we stop filling any boards that are not valid.
-    for(var i=0; i < boardLength; i++){
-        for(var j=0; j < boardLength; j++){
-            if(board[i][j] == null) return false;
+    for (var i = 0; i < boardLength; i++) {
+        for (var j = 0; j < boardLength; j++) {
+            if (board[i][j] == null)
+                return false;
         }
     }
     return true;
 };
-
-const GeneratePossibleBoards = (board: number[][]) : number[][][] => {
+var GeneratePossibleBoards = function (board) {
     var boards = [];
     var coordinateOfFirstEmptyBox = GetCoordinateFirstEmptyBox(board);
-    
     // Only do this if the emptybox coordinate is found.
-    if(coordinateOfFirstEmptyBox != undefined){
+    if (coordinateOfFirstEmptyBox != undefined) {
         // Index starts with one to get [1, 2, ... 9].
-        for(var i=1; i <= 9; i++){
-            var duplicateBoard = [...board];
-            var duplicateRow = [...duplicateBoard[coordinateOfFirstEmptyBox[0]]]; // Y coordinate, grabs that whole row.
-            duplicateRow[coordinateOfFirstEmptyBox[1]] = i;              // X coordinate, change a box from that row being extracted.
+        for (var i = 1; i <= 9; i++) {
+            var duplicateBoard = __spreadArrays(board);
+            var duplicateRow = __spreadArrays(duplicateBoard[coordinateOfFirstEmptyBox[0]]); // Y coordinate, grabs that whole row.
+            duplicateRow[coordinateOfFirstEmptyBox[1]] = i; // X coordinate, change a box from that row being extracted.
             duplicateBoard[coordinateOfFirstEmptyBox[0]] = duplicateRow; // Inserts that modified row back to the board.
-            boards.push(duplicateBoard); 
+            boards.push(duplicateBoard);
         }
     }
     return boards;
 };
-
-const GetCoordinateFirstEmptyBox = (board: number[][]) : [number,number] => {
+var GetCoordinateFirstEmptyBox = function (board) {
     // Loop goes vertically first, then horizontally.
-    for(var x=0; x < boardLength; x++){
-        for(var y=0; y < boardLength; y++){
-            if(board[y][x] == null) {
+    for (var x = 0; x < boardLength; x++) {
+        for (var y = 0; y < boardLength; y++) {
+            if (board[y][x] == null) {
                 // Let coordinate be [y,x], x being horizontal, y being vertical.
-                return [y,x];
+                return [y, x];
             }
         }
     }
 };
-
-const ValidateBoards = (boards: number[][][]) : number[][][] => {
+var ValidateBoards = function (boards) {
     var validBoards = [];
-    for(var i=0; i < boards.length; i++){
-        if(ValidateBoard(boards[i])){
+    for (var i = 0; i < boards.length; i++) {
+        if (ValidateBoard(boards[i])) {
             validBoards.push(boards[i]);
         }
     }
     return validBoards;
 };
-
-const ValidateBoard = (board: number[][]) : boolean => {
-    const rowsAreValid = ValidateRows(board);
-    const columnsAreValid = ValidateColumns(board);
-    const boxesAreValid = ValidateBoxes(board);
-    if(rowsAreValid && columnsAreValid && boxesAreValid) return true;
+var ValidateBoard = function (board) {
+    var rowsAreValid = ValidateRows(board);
+    var columnsAreValid = ValidateColumns(board);
+    var boxesAreValid = ValidateBoxes(board);
+    if (rowsAreValid && columnsAreValid && boxesAreValid)
+        return true;
     return false;
 };
-
-const ValidateRows = (board: number[][]) : boolean => {
-    for(var i=0 ; i < boardLength; i++){
-        var rowElements:number[] = [];
-        for(var j=0; j < boardLength; j++){
+var ValidateRows = function (board) {
+    for (var i = 0; i < boardLength; i++) {
+        var rowElements = [];
+        for (var j = 0; j < boardLength; j++) {
             var boxElement = board[i][j];
-            if(rowElements.includes(boxElement)){
+            if (rowElements.includes(boxElement)) {
                 return false;
-            }else if(boxElement != null){ // Do not push empty boxes.
+            }
+            else if (boxElement != null) { // Do not push empty boxes.
                 rowElements.push(boxElement);
             }
         }
     }
     return true;
 };
-
-const ValidateColumns = (board: number[][]) : boolean => {
-    for(var i=0 ; i < boardLength; i++){
-        var columnElements:number[] = [];
-        for(var j=0; j < boardLength; j++){
+var ValidateColumns = function (board) {
+    for (var i = 0; i < boardLength; i++) {
+        var columnElements = [];
+        for (var j = 0; j < boardLength; j++) {
             var boxElement = board[j][i];
-            if(columnElements.includes(boxElement)){
+            if (columnElements.includes(boxElement)) {
                 return false;
-            }else if(boxElement != null){ // Do not push empty boxes.
+            }
+            else if (boxElement != null) { // Do not push empty boxes.
                 columnElements.push(boxElement);
             }
         }
     }
     return true;
 };
-
-const ValidateBoxes = (board: number[][]) : boolean => {
+var ValidateBoxes = function (board) {
     // Coordinate for a single box being checked.
-    const coordinates = [
+    var coordinates = [
         [0, 0], [0, 1], [0, 2],
         [1, 0], [1, 1], [1, 2],
         [2, 0], [2, 1], [2, 2]
     ];
-    
-    for(var i=0; i < boardLength; i+=3){
-        for(var j=0; j < boardLength; j+=3){
-            var boxElements:number[] = [];
-            for (var k=0; k < 9; k++){
-                var duplicateCoordinates = [...coordinates[k]];
-                duplicateCoordinates[0] += i // Row modifier depending on the box being checked.
-                duplicateCoordinates[1] += j // Column modifier depending on the box being checked.
-
-                if(boxElements.includes(board[duplicateCoordinates[0]][duplicateCoordinates[1]])){
+    for (var i = 0; i < boardLength; i += 3) {
+        for (var j = 0; j < boardLength; j += 3) {
+            var boxElements = [];
+            for (var k = 0; k < 9; k++) {
+                var duplicateCoordinates = __spreadArrays(coordinates[k]);
+                duplicateCoordinates[0] += i; // Row modifier depending on the box being checked.
+                duplicateCoordinates[1] += j; // Column modifier depending on the box being checked.
+                if (boxElements.includes(board[duplicateCoordinates[0]][duplicateCoordinates[1]])) {
                     return false;
-                }else if(board[duplicateCoordinates[0]][duplicateCoordinates[1]] != null){ // Do not push empty boxes.
+                }
+                else if (board[duplicateCoordinates[0]][duplicateCoordinates[1]] != null) { // Do not push empty boxes.
                     boxElements.push(board[duplicateCoordinates[0]][duplicateCoordinates[1]]);
                 }
             }
@@ -263,18 +242,19 @@ const ValidateBoxes = (board: number[][]) : boolean => {
     }
     return true;
 };
-
-const FindCompletedBoard = (boards: number[][][]) : (number[][]) => {
-    if(boards.length < 1){
+var FindCompletedBoard = function (boards) {
+    if (boards.length < 1) {
         // No valid boards. Reached a deadend here.
         return null;
-    }else{
+    }
+    else {
         // Backtracking search to find board with solution.
         var currentBoard = boards.shift();
-        const boardTreePath = Solve(currentBoard);
-        if(boardTreePath != null){
+        var boardTreePath = Solve(currentBoard);
+        if (boardTreePath != null) {
             return boardTreePath;
-        }else{
+        }
+        else {
             // That path leads us into a board that has no solution, need to backtrack
             // List of boards have been changed (through the shift function), meaning that the invalid board has been removed from the list of boards.
             // Analogy: Moving horizontally into the other tree since the current tree is leading into a deadend (board with wrong solution)
@@ -282,44 +262,40 @@ const FindCompletedBoard = (boards: number[][][]) : (number[][]) => {
         }
     }
 };
-
 //#endregion
-
 //#region Helper Methods
-
-const SolveSudokuBoard = () => {
+var SolveSudokuBoard = function () {
     var questionBoard = ReadBoardFromQuestion();
     var inputsAreValid = ValidateBoxInput();
     var questionIsValid = ValidateBoard(questionBoard);
-    if(inputsAreValid && questionIsValid){
-        var answerBoard = Solve(questionBoard);   
-        MapBoardToAnswer(answerBoard); 
+    if (inputsAreValid && questionIsValid) {
+        var answerBoard = Solve(questionBoard);
+        MapBoardToAnswer(answerBoard);
     }
-    else{
-         alert("This sudoku question Board is invalid! Please change the question board.");
+    else {
+        alert("This sudoku question Board is invalid! Please change the question board.");
     }
 };
-
-const ReadBoardFromQuestion = ():((number|null)[][]) => {
-    var input:(number|null)[][] = [[]];
-    var j=0;
+var ReadBoardFromQuestion = function () {
+    var input = [[]];
+    var j = 0;
     var rowCounter = 0;
-    for(var i = 1; i <= 81; i++){
-        const box = (<HTMLInputElement>document.getElementById(`box-${i}`)).value;
-        if(box == ""){
+    for (var i = 1; i <= 81; i++) {
+        var box = document.getElementById("box-" + i).value;
+        if (box == "") {
             input[j].push(null);
-        }else{
+        }
+        else {
             input[j].push(Number(box));
         }
         rowCounter++;
-
-        if(i == 81){
+        if (i == 81) {
             break;
         }
-
-        if(rowCounter < 9){
+        if (rowCounter < 9) {
             continue;
-        }else{
+        }
+        else {
             input.push([]);
             j++;
             rowCounter = 0;
@@ -327,57 +303,55 @@ const ReadBoardFromQuestion = ():((number|null)[][]) => {
     }
     return input;
 };
-
-const MapBoardToAnswer = (board:number[][]) => {
+var MapBoardToAnswer = function (board) {
     var indexCounter = 1;
-    for(var j=0 ; j < boardLength; j++){
-        for(var i=0 ; i <boardLength; i++){
-            const value = board[j][i];
-            if(value === null){
+    for (var j = 0; j < boardLength; j++) {
+        for (var i = 0; i < boardLength; i++) {
+            var value = board[j][i];
+            if (value === null) {
                 indexCounter++;
-            }else{
-                document.getElementById(`ans-${indexCounter}`).setAttribute('value',String(value));
+            }
+            else {
+                document.getElementById("ans-" + indexCounter).setAttribute('value', String(value));
                 indexCounter++;
             }
         }
     }
 };
-
-const MapBoardToQuestion = (board:number[][]) => {
+var MapBoardToQuestion = function (board) {
     var indexCounter = 1;
-    for(var j=0 ; j < boardLength; j++){
-        for(var i=0 ; i <boardLength; i++){
-            const value = board[j][i];
-            if(value === null){
+    for (var j = 0; j < boardLength; j++) {
+        for (var i = 0; i < boardLength; i++) {
+            var value = board[j][i];
+            if (value === null) {
                 indexCounter++;
-            }else{
-                document.getElementById(`box-${indexCounter}`).setAttribute('value',String(value));
+            }
+            else {
+                document.getElementById("box-" + indexCounter).setAttribute('value', String(value));
                 indexCounter++;
             }
         }
     }
 };
-
-const MapEmptyBoardToQuestion = () => {
-    for(var i=1; i <= 81; i++){
-        document.getElementById(`box-${i}`).removeAttribute("value");
-        (<HTMLInputElement>document.getElementById(`box-${i}`)).value = "";
+var MapEmptyBoardToQuestion = function () {
+    for (var i = 1; i <= 81; i++) {
+        document.getElementById("box-" + i).removeAttribute("value");
+        document.getElementById("box-" + i).value = "";
     }
 };
-
-const MapEmptyBoardToAnswer = () => {
-    for(var i=1; i <= 81; i++){
-        document.getElementById(`ans-${i}`).removeAttribute("value");
-        (<HTMLInputElement>document.getElementById(`ans-${i}`)).value = "";
+var MapEmptyBoardToAnswer = function () {
+    for (var i = 1; i <= 81; i++) {
+        document.getElementById("ans-" + i).removeAttribute("value");
+        document.getElementById("ans-" + i).value = "";
     }
 };
-
-const ValidateBoxInput = () => {
-    for(var i=1; i <= 81; i++){
-        var num = (<HTMLInputElement>document.getElementById(`box-${i}`)).value;
-        if(num.length > 1) return false;
+var ValidateBoxInput = function () {
+    for (var i = 1; i <= 81; i++) {
+        var num = document.getElementById("box-" + i).value;
+        if (num.length > 1)
+            return false;
     }
     return true;
 };
-
 //#endregion
+//# sourceMappingURL=index.js.map
