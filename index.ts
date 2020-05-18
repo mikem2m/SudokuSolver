@@ -1,38 +1,3 @@
-//#region Button Event Listeners
-
-// var solveButton = document.getElementById("solveButton");
-// solveButton.addEventListener('click',() => {
-//     SolveSudokuBoard();
-// });
-
-const onSolveButtonClicked = () => {
-    SolveSudokuBoard();
-};
-
-// var fillButton = document.getElementById("fillButton");
-// fillButton.addEventListener('click',() => {
-//     MapEmptyBoardToQuestion();
-//     MapBoardToQuestion(exampleBoard2);
-//     MapEmptyBoardToAnswer();
-// });
-
-const onFillButtonClicked = () => {
-    MapBoardToQuestion(exampleBoard2);
-};
-
-// var clearButton = document.getElementById("clearButton");
-// clearButton.addEventListener('click', () => {
-//     MapEmptyBoardToQuestion();
-//     MapEmptyBoardToAnswer();
-// });
-
-const onClearButtonClicked = () => {
-    MapEmptyBoardToQuestion();
-    MapEmptyBoardToAnswer();
-};
-
-//#endregion
-
 //#region Constants
 
 const n:null = null;
@@ -293,7 +258,15 @@ const SolveSudokuBoard = () => {
     var questionIsValid = ValidateBoard(questionBoard);
     if(inputsAreValid && questionIsValid){
         var answerBoard = Solve(questionBoard);   
-        MapBoardToAnswer(answerBoard); 
+        if(answerBoard !== null){
+            MapBoardToAnswer(answerBoard); 
+        }
+        else{
+            alert("This sudoku question Board is invalid! Please change the question board.");   
+        }
+    }
+    else if(!inputsAreValid){
+        alert("One of the boxes in this sudoku question Board is invalid as they contain a double digit number! Please change the question board");
     }
     else{
          alert("This sudoku question Board is invalid! Please change the question board.");
@@ -303,7 +276,6 @@ const SolveSudokuBoard = () => {
 const ReadBoardFromQuestion = ():((number|null)[][]) => {
     var input:(number|null)[][] = [[]];
     var j=0;
-    var rowCounter = 0;
     for(var i = 1; i <= 81; i++){
         const box = (<HTMLInputElement>document.getElementById(`box-${i}`)).value;
         if(box == ""){
@@ -311,18 +283,9 @@ const ReadBoardFromQuestion = ():((number|null)[][]) => {
         }else{
             input[j].push(Number(box));
         }
-        rowCounter++;
-
-        if(i == 81){
-            break;
-        }
-
-        if(rowCounter < 9){
-            continue;
-        }else{
+        if(i % 9 == 0 && i < 81){
             input.push([]);
             j++;
-            rowCounter = 0;
         }
     }
     return input;
@@ -336,7 +299,7 @@ const MapBoardToAnswer = (board:number[][]) => {
             if(value === null){
                 indexCounter++;
             }else{
-                document.getElementById(`ans-${indexCounter}`).setAttribute('value',String(value));
+                (<HTMLInputElement>document.getElementById(`ans-${indexCounter}`)).value = String(value);
                 indexCounter++;
             }
         }
@@ -351,7 +314,7 @@ const MapBoardToQuestion = (board:number[][]) => {
             if(value === null){
                 indexCounter++;
             }else{
-                document.getElementById(`box-${indexCounter}`).setAttribute('value',String(value));
+                (<HTMLInputElement>document.getElementById(`box-${indexCounter}`)).value = String(value);
                 indexCounter++;
             }
         }
@@ -378,6 +341,41 @@ const ValidateBoxInput = () => {
         if(num.length > 1) return false;
     }
     return true;
+};
+
+//#endregion
+
+//#region Button Event Listeners
+
+// var solveButton = document.getElementById("solveButton");
+// solveButton.addEventListener('click',() => {
+//     SolveSudokuBoard();
+// });
+
+const onSolveButtonClicked = () => {
+    SolveSudokuBoard();
+};
+
+// var fillButton = document.getElementById("fillButton");
+// fillButton.addEventListener('click',() => {
+//     MapEmptyBoardToQuestion();
+//     MapBoardToQuestion(exampleBoard2);
+//     MapEmptyBoardToAnswer();
+// });
+
+const onFillButtonClicked = () => {
+    MapBoardToQuestion(exampleBoard2);
+};
+
+// var clearButton = document.getElementById("clearButton");
+// clearButton.addEventListener('click', () => {
+//     MapEmptyBoardToQuestion();
+//     MapEmptyBoardToAnswer();
+// });
+
+const onClearButtonClicked = () => {
+    MapEmptyBoardToQuestion();
+    MapEmptyBoardToAnswer();
 };
 
 //#endregion

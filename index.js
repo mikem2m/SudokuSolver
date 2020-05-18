@@ -1,5 +1,5 @@
 "use strict";
-//#region Button Event Listeners
+//#region Constants
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -7,33 +7,6 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-// var solveButton = document.getElementById("solveButton");
-// solveButton.addEventListener('click',() => {
-//     SolveSudokuBoard();
-// });
-var onSolveButtonClicked = function () {
-    SolveSudokuBoard();
-};
-// var fillButton = document.getElementById("fillButton");
-// fillButton.addEventListener('click',() => {
-//     MapEmptyBoardToQuestion();
-//     MapBoardToQuestion(exampleBoard2);
-//     MapEmptyBoardToAnswer();
-// });
-var onFillButtonClicked = function () {
-    MapBoardToQuestion(exampleBoard2);
-};
-// var clearButton = document.getElementById("clearButton");
-// clearButton.addEventListener('click', () => {
-//     MapEmptyBoardToQuestion();
-//     MapEmptyBoardToAnswer();
-// });
-var onClearButtonClicked = function () {
-    MapEmptyBoardToQuestion();
-    MapEmptyBoardToAnswer();
-};
-//#endregion
-//#region Constants
 var n = null;
 var boardLength = 9;
 //#endregion
@@ -270,7 +243,15 @@ var SolveSudokuBoard = function () {
     var questionIsValid = ValidateBoard(questionBoard);
     if (inputsAreValid && questionIsValid) {
         var answerBoard = Solve(questionBoard);
-        MapBoardToAnswer(answerBoard);
+        if (answerBoard !== null) {
+            MapBoardToAnswer(answerBoard);
+        }
+        else {
+            alert("This sudoku question Board is invalid! Please change the question board.");
+        }
+    }
+    else if (!inputsAreValid) {
+        alert("One of the boxes in this sudoku question Board is invalid as they contain a double digit number! Please change the question board");
     }
     else {
         alert("This sudoku question Board is invalid! Please change the question board.");
@@ -279,7 +260,6 @@ var SolveSudokuBoard = function () {
 var ReadBoardFromQuestion = function () {
     var input = [[]];
     var j = 0;
-    var rowCounter = 0;
     for (var i = 1; i <= 81; i++) {
         var box = document.getElementById("box-" + i).value;
         if (box == "") {
@@ -288,17 +268,9 @@ var ReadBoardFromQuestion = function () {
         else {
             input[j].push(Number(box));
         }
-        rowCounter++;
-        if (i == 81) {
-            break;
-        }
-        if (rowCounter < 9) {
-            continue;
-        }
-        else {
+        if (i % 9 == 0 && i < 81) {
             input.push([]);
             j++;
-            rowCounter = 0;
         }
     }
     return input;
@@ -312,7 +284,7 @@ var MapBoardToAnswer = function (board) {
                 indexCounter++;
             }
             else {
-                document.getElementById("ans-" + indexCounter).setAttribute('value', String(value));
+                document.getElementById("ans-" + indexCounter).value = String(value);
                 indexCounter++;
             }
         }
@@ -327,7 +299,7 @@ var MapBoardToQuestion = function (board) {
                 indexCounter++;
             }
             else {
-                document.getElementById("box-" + indexCounter).setAttribute('value', String(value));
+                document.getElementById("box-" + indexCounter).value = String(value);
                 indexCounter++;
             }
         }
@@ -352,6 +324,33 @@ var ValidateBoxInput = function () {
             return false;
     }
     return true;
+};
+//#endregion
+//#region Button Event Listeners
+// var solveButton = document.getElementById("solveButton");
+// solveButton.addEventListener('click',() => {
+//     SolveSudokuBoard();
+// });
+var onSolveButtonClicked = function () {
+    SolveSudokuBoard();
+};
+// var fillButton = document.getElementById("fillButton");
+// fillButton.addEventListener('click',() => {
+//     MapEmptyBoardToQuestion();
+//     MapBoardToQuestion(exampleBoard2);
+//     MapEmptyBoardToAnswer();
+// });
+var onFillButtonClicked = function () {
+    MapBoardToQuestion(exampleBoard2);
+};
+// var clearButton = document.getElementById("clearButton");
+// clearButton.addEventListener('click', () => {
+//     MapEmptyBoardToQuestion();
+//     MapEmptyBoardToAnswer();
+// });
+var onClearButtonClicked = function () {
+    MapEmptyBoardToQuestion();
+    MapEmptyBoardToAnswer();
 };
 //#endregion
 //# sourceMappingURL=index.js.map
